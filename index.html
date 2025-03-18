@@ -1,0 +1,1585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TestOwl - Create & Share Quizzes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="landing-page">
+            <div class="hero-section">
+                <div class="animated-background">
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                </div>
+                <div class="hero-split">
+                    <div class="hero-content">
+                        <div class="hero-text">
+                            <div class="emoji-title">
+                                <span class="graduation-cap">🎓</span>
+                                <span class="app-title">TestOwl</span>
+                            </div>
+                            <h1 class="hero-title">Master Your Knowledge</h1>
+                            <p class="hero-subtitle">Create engaging quizzes offline, share them with ease, and enhance learning outcomes with TestOwl's intuitive platform.</p>
+                            <div class="hero-actions">
+                                <button class="btn btn-primary glow-effect" onclick="showCreateQuiz()">
+                                    <i class="fas fa-plus"></i>
+                                    Create Quiz
+                                </button>
+                                <button class="btn btn-secondary shine-effect" onclick="showImportQuiz()">
+                                    <i class="fas fa-file-import"></i>
+                                    Import Quiz
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hero-image">
+                        <div class="floating-cards">
+                            <div class="preview-card">
+                                <div class="preview-header"></div>
+                                <div class="preview-content">
+                                    <div class="preview-line"></div>
+                                    <div class="preview-line"></div>
+                                    <div class="preview-line short"></div>
+                                </div>
+                            </div>
+                            <div class="preview-card">
+                                <div class="preview-header"></div>
+                                <div class="preview-content">
+                                    <div class="preview-line"></div>
+                                    <div class="preview-line"></div>
+                                    <div class="preview-line short"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="features-section">
+                <h2 class="section-title">Why Choose TestOwl?</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">
+                            <i class="fas fa-laptop-code feature-icon"></i>
+                        </div>
+                        <h3 class="feature-title">100% Offline</h3>
+                        <p class="feature-description">Build and run quizzes completely offline. Your data never leaves your device - it's downloaded and stored locally.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">
+                            <i class="fas fa-puzzle-piece feature-icon"></i>
+                        </div>
+                        <h3 class="feature-title">Simple Sharing</h3>
+                        <p class="feature-description">Download your quizzes as encrypted .qowl files and share them however you prefer. You control your content.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">
+                            <i class="fas fa-brain feature-icon"></i>
+                        </div>
+                        <h3 class="feature-title">Better Learning</h3>
+                        <p class="feature-description">Smart question shuffling and instant feedback help improve understanding and knowledge retention.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="workflow-section">
+                <h2 class="section-title">How It Works</h2>
+                <div class="workflow-steps">
+                    <div class="workflow-step">
+                        <div class="step-icon">
+                            <i class="fas fa-pencil-alt"></i>
+                        </div>
+                        <div class="step-content">
+                            <h3>Create Locally</h3>
+                            <p>Design your quiz right on your device. Add questions, customize options, and include explanations - all without needing to be online.</p>
+                        </div>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="step-icon">
+                            <i class="fas fa-download"></i>
+                        </div>
+                        <div class="step-content">
+                            <h3>Download & Share</h3>
+                            <p>Save your quiz as an encrypted .qowl file on your device. Share it through email, messaging, or any way you prefer.</p>
+                        </div>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="step-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <div class="step-content">
+                            <h3>Learn & Improve</h3>
+                            <p>Take quizzes offline, get instant feedback, and track your progress to enhance your learning experience.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cta-section">
+                <div class="cta-content">
+                    <h2>Start Creating Today</h2>
+                    <p>Build your first quiz in minutes - completely free and offline!</p>
+                    <button class="btn btn-primary glow-effect" onclick="showCreateQuiz()">
+                        <i class="fas fa-rocket"></i>
+                        Get Started
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz Builder View (Initially Hidden) -->
+        <div class="quiz-builder-view" style="display: none;">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Create New Quiz</h2>
+                </div>
+                <div class="card-body">
+                    <form id="quizForm">
+                        <div class="form-group">
+                            <label for="quizTitle">Quiz Title</label>
+                            <input type="text" id="quizTitle" class="form-input" placeholder="Enter quiz title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="quizDescription">Description</label>
+                            <textarea id="quizDescription" class="form-input" placeholder="Enter quiz description"></textarea>
+                        </div>
+                        <div id="questionsContainer" class="questions-list">
+                            <!-- Questions will be added here -->
+                        </div>
+                        <button type="button" class="btn btn-secondary add-question-btn" onclick="addQuestion()">
+                            <i class="fas fa-plus"></i>
+                            Add Question
+                        </button>
+                        <div class="quiz-actions">
+                            <button type="button" class="btn btn-primary" onclick="saveQuiz()">
+                                <i class="fas fa-save"></i>
+                                Save Quiz
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stored Quizzes View (Initially Hidden) -->
+        <div class="stored-quizzes-view" style="display: none;">
+            <div class="card">
+                <div class="card-header">
+                    <div class="stored-quizzes-header">
+                        <div class="search-filter-bar">
+                            <div class="search-box">
+                                <i class="fas fa-search"></i>
+                                <input type="text" id="quizSearch" placeholder="Search quizzes..." 
+                                       oninput="filterQuizzes()">
+                            </div>
+                            <div class="filter-options">
+                                <select id="quizTypeFilter" onchange="filterQuizzes()">
+                                    <option value="all">All Types</option>
+                                    <option value="single">Single Choice</option>
+                                    <option value="multiple">Multiple Choice</option>
+                                </select>
+                                <select id="quizSortBy" onchange="filterQuizzes()">
+                                    <option value="newest">Newest First</option>
+                                    <option value="oldest">Oldest First</option>
+                                    <option value="name">Name (A-Z)</option>
+                                    <option value="score">Highest Score</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="view-toggle">
+                            <button class="view-btn active" data-view="grid" onclick="toggleQuizView('grid')">
+                                <i class="fas fa-th-large"></i>
+                            </button>
+                            <button class="view-btn" data-view="list" onclick="toggleQuizView('list')">
+                                <i class="fas fa-list"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div id="storedQuizzesList"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <nav class="bottom-nav">
+        <div class="nav-item active" onclick="showHome()">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </div>
+        <div class="nav-item" onclick="showCreateQuiz()">
+            <i class="fas fa-plus"></i>
+            <span>Create</span>
+        </div>
+        <div class="nav-item" onclick="showStoredQuizzes()">
+            <i class="fas fa-folder"></i>
+            <span>Stored</span>
+        </div>
+        <div class="nav-item" onclick="showImportQuiz()">
+            <i class="fas fa-file-import"></i>
+            <span>Import</span>
+        </div>
+    </nav>
+
+    <script>
+        // View Management
+        function showHome() {
+            document.querySelector('.landing-page').style.display = 'block';
+            document.querySelector('.quiz-builder-view').style.display = 'none';
+            document.querySelector('.stored-quizzes-view').style.display = 'none';
+            updateActiveNavItem('home');
+        }
+
+        function showCreateQuiz() {
+            document.querySelector('.landing-page').style.display = 'none';
+            document.querySelector('.quiz-builder-view').style.display = 'block';
+            document.querySelector('.stored-quizzes-view').style.display = 'none';
+            updateActiveNavItem('create');
+        }
+
+        function showStoredQuizzes() {
+            document.querySelector('.landing-page').style.display = 'none';
+            document.querySelector('.quiz-builder-view').style.display = 'none';
+            document.querySelector('.stored-quizzes-view').style.display = 'block';
+            updateActiveNavItem('stored');
+            loadStoredQuizzes();
+        }
+
+        function showImportQuiz() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.qowl';
+            input.onchange = handleFileImport;
+            input.click();
+            updateActiveNavItem('import');
+        }
+
+        function updateActiveNavItem(view) {
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            const activeItem = {
+                'home': 0,
+                'create': 1,
+                'stored': 2,
+                'import': 3
+            }[view];
+            document.querySelectorAll('.nav-item')[activeItem].classList.add('active');
+        }
+
+        // Encryption utilities
+        const CryptoUtils = {
+            // Generate a random salt
+            generateSalt: function(length = 16) {
+                const array = new Uint8Array(length);
+                crypto.getRandomValues(array);
+                return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
+            },
+            
+            // Derive key from password and salt
+            deriveKey: async function(password, salt) {
+                const encoder = new TextEncoder();
+                const passwordData = encoder.encode(password);
+                const saltData = encoder.encode(salt);
+                
+                const keyMaterial = await crypto.subtle.importKey(
+                    'raw',
+                    passwordData,
+                    { name: 'PBKDF2' },
+                    false,
+                    ['deriveBits', 'deriveKey']
+                );
+                
+                return await crypto.subtle.deriveKey(
+                    {
+                        name: 'PBKDF2',
+                        salt: saltData,
+                        iterations: 100000,
+                        hash: 'SHA-256'
+                    },
+                    keyMaterial,
+                    { name: 'AES-GCM', length: 256 },
+                    true,
+                    ['encrypt', 'decrypt']
+                );
+            },
+            
+            // Encrypt data
+            encrypt: async function(data, password) {
+                const salt = this.generateSalt();
+                const key = await this.deriveKey(password, salt);
+                const encoder = new TextEncoder();
+                const dataBuffer = encoder.encode(JSON.stringify(data));
+                
+                const iv = crypto.getRandomValues(new Uint8Array(12));
+                const encrypted = await crypto.subtle.encrypt(
+                    { name: 'AES-GCM', iv },
+                    key,
+                    dataBuffer
+                );
+                
+                return {
+                    version: 1,
+                    salt: salt,
+                    iv: Array.from(iv, byte => byte.toString(16).padStart(2, '0')).join(''),
+                    data: Array.from(new Uint8Array(encrypted), byte => byte.toString(16).padStart(2, '0')).join('')
+                };
+            },
+            
+            // Decrypt data
+            decrypt: async function(encryptedData, password) {
+                try {
+                    const salt = encryptedData.salt;
+                    const key = await this.deriveKey(password, salt);
+                    const iv = new Uint8Array(encryptedData.iv.match(/.{2}/g).map(byte => parseInt(byte, 16)));
+                    const data = new Uint8Array(encryptedData.data.match(/.{2}/g).map(byte => parseInt(byte, 16)));
+                    
+                    const decrypted = await crypto.subtle.decrypt(
+                        { name: 'AES-GCM', iv },
+                        key,
+                        data
+                    );
+                    
+                    const decoder = new TextDecoder();
+                    return JSON.parse(decoder.decode(decrypted));
+                } catch (error) {
+                    throw new Error('Invalid password or corrupted data');
+                }
+            }
+        };
+
+        // Update the password modal function to include confirmation
+        function showPasswordModal(title, message) {
+            return new Promise((resolve) => {
+                const modalHTML = `
+                    <div class="modal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h2>${title}</h2>
+                                <button class="close-btn" onclick="this.closest('.modal').remove(); resolve(null);">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <p>${message}</p>
+                                <div class="form-group">
+                                    <label for="quizPassword">Password</label>
+                                    <div class="password-field">
+                                        <input type="password" id="quizPassword" class="form-input" 
+                                               placeholder="Enter password (leave blank for no password)">
+                                        <i class="fas fa-eye toggle-password" onclick="togglePasswordVisibility(this)"></i>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="confirmPassword">Confirm Password</label>
+                                    <div class="password-field">
+                                        <input type="password" id="confirmPassword" class="form-input" 
+                                               placeholder="Confirm password">
+                                        <i class="fas fa-eye toggle-password" onclick="togglePasswordVisibility(this)"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" onclick="this.closest('.modal').remove(); resolve(null);">
+                                    Cancel
+                                </button>
+                                <button class="btn btn-primary" onclick="submitPasswordWithConfirmation(this)">
+                                    Confirm
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                document.body.insertAdjacentHTML('beforeend', modalHTML);
+                
+                // Handle password submission with confirmation
+                window.submitPasswordWithConfirmation = function(button) {
+                    const password = document.getElementById('quizPassword').value;
+                    const confirmPassword = document.getElementById('confirmPassword').value;
+                    
+                    // If password is blank, allow it
+                    if (!password && !confirmPassword) {
+                        button.closest('.modal').remove();
+                        resolve('');
+                        return;
+                    }
+                    
+                    // Check if passwords match
+                    if (password !== confirmPassword) {
+                        showToast('Passwords do not match', 'error');
+                        return;
+                    }
+                    
+                    button.closest('.modal').remove();
+                    resolve(password);
+                };
+                
+                // Focus password input
+                document.getElementById('quizPassword').focus();
+            });
+        }
+
+        // Add password visibility toggle
+        function togglePasswordVisibility(icon) {
+            const input = icon.previousElementSibling;
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.replace('fa-eye', 'fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.replace('fa-eye-slash', 'fa-eye');
+            }
+        }
+
+        // Store quiz in local storage
+        function storeQuiz(quiz) {
+            try {
+                const storedQuizzes = JSON.parse(localStorage.getItem('storedQuizzes') || '[]');
+                const quizToStore = {
+                    ...quiz,
+                    id: Date.now().toString(36),
+                    timestamp: Date.now()
+                };
+                storedQuizzes.push(quizToStore);
+                localStorage.setItem('storedQuizzes', JSON.stringify(storedQuizzes));
+                showToast('Quiz stored successfully!', 'success');
+                showStoredQuizzes(); // Refresh the view
+            } catch (error) {
+                showToast('Failed to store quiz', 'error');
+            }
+        }
+
+        // Delete quiz from storage
+        function deleteQuiz(quizId) {
+            try {
+                if (!confirm('Are you sure you want to delete this quiz?')) return;
+                
+                const storedQuizzes = JSON.parse(localStorage.getItem('storedQuizzes') || '[]');
+                const updatedQuizzes = storedQuizzes.filter(q => q.id !== quizId);
+                localStorage.setItem('storedQuizzes', JSON.stringify(updatedQuizzes));
+                showToast('Quiz deleted successfully!', 'success');
+                loadStoredQuizzes(); // Refresh the list
+            } catch (error) {
+                showToast('Failed to delete quiz', 'error');
+            }
+        }
+
+        // Start quiz
+        function startQuiz(quizId) {
+            try {
+                const storedQuizzes = JSON.parse(localStorage.getItem('storedQuizzes') || '[]');
+                const quiz = storedQuizzes.find(q => q.id === quizId);
+                if (!quiz) {
+                    showToast('Quiz not found', 'error');
+                    return;
+                }
+                
+                // Store current quiz for taking
+                window.currentQuiz = {
+                    ...quiz,
+                    questions: shuffleArray([...quiz.questions])
+                };
+                
+                showQuizView();
+            } catch (error) {
+                showToast('Failed to start quiz', 'error');
+            }
+        }
+
+        // Shuffle array (for randomizing questions)
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // Validate quiz before saving
+        function validateQuiz() {
+            const title = document.getElementById('quizTitle').value.trim();
+            if (!title) {
+                throw new Error('Please enter a quiz title');
+            }
+
+            const questions = Array.from(document.querySelectorAll('.question-item'));
+            if (questions.length === 0) {
+                throw new Error('Please add at least one question');
+            }
+
+            questions.forEach((questionElement, index) => {
+                const questionText = questionElement.querySelector('.question-text').value.trim();
+                if (!questionText) {
+                    throw new Error(`Question ${index + 1} is missing text`);
+                }
+
+                const questionType = questionElement.querySelector('.question-type-select').value;
+                const options = Array.from(questionElement.querySelectorAll('.option-item')).map(opt => ({
+                    text: opt.querySelector('.option-text').value.trim(),
+                    isCorrect: opt.querySelector('.correct-checkbox').checked
+                }));
+
+                if (options.length < 2) {
+                    throw new Error(`Question ${index + 1} must have at least 2 options`);
+                }
+
+                if (!options.some(opt => opt.text)) {
+                    throw new Error(`Question ${index + 1} has empty options`);
+                }
+
+                const correctOptions = options.filter(opt => opt.isCorrect);
+                if (correctOptions.length === 0) {
+                    throw new Error(`Question ${index + 1} must have at least one correct answer`);
+                }
+
+                if (questionType === 'single' && correctOptions.length > 1) {
+                    throw new Error(`Question ${index + 1} is single choice but has multiple correct answers selected`);
+                }
+            });
+        }
+
+        // Update the saveQuiz function to use validation
+        async function saveQuiz() {
+            try {
+                // Validate quiz
+                validateQuiz();
+                
+                const title = document.getElementById('quizTitle').value.trim();
+                const description = document.getElementById('quizDescription').value.trim();
+                
+                const questions = Array.from(document.querySelectorAll('.question-item')).map(questionElement => {
+                    // Get question text with null check
+                    const questionTextElement = questionElement.querySelector('.question-text');
+                    if (!questionTextElement) {
+                        throw new Error('Question text element not found');
+                    }
+                    const questionText = questionTextElement.value.trim();
+
+                    // Get question type with null check
+                    const questionTypeElement = questionElement.querySelector('.question-type-select');
+                    if (!questionTypeElement) {
+                        throw new Error('Question type element not found');
+                    }
+                    const questionType = questionTypeElement.value;
+
+                    const options = [];
+                    const correctAnswers = [];
+                    
+                    // Get all option items
+                    const optionItems = questionElement.querySelectorAll('.option-item');
+                    if (!optionItems || optionItems.length === 0) {
+                        throw new Error('No options found for question');
+                    }
+
+                    optionItems.forEach((optionElement, index) => {
+                        // Get option text with null check
+                        const optionTextElement = optionElement.querySelector('.option-text');
+                        if (!optionTextElement) {
+                            throw new Error(`Option text element not found for option ${index + 1}`);
+                        }
+                        const optionText = optionTextElement.value.trim();
+
+                        // Get correct checkbox with null check
+                        const correctCheckbox = optionElement.querySelector('.correct-checkbox');
+                        if (!correctCheckbox) {
+                            throw new Error(`Correct checkbox not found for option ${index + 1}`);
+                        }
+                        const isCorrect = correctCheckbox.checked;
+                        
+                        if (optionText) {
+                            options.push(optionText);
+                            if (isCorrect) {
+                                correctAnswers.push(optionText);
+                            }
+                        }
+                    });
+
+                    // Create question object based on type
+                    const questionData = {
+                        question: questionText,
+                        type: questionType,
+                        options: options
+                    };
+
+                    // Add correct answer(s) based on question type
+                    if (questionType === 'single') {
+                        questionData.correctAnswer = correctAnswers[0] || '';
+                    } else {
+                        questionData.correctAnswers = correctAnswers;
+                    }
+
+                    return questionData;
+                });
+
+                const quiz = {
+                    title,
+                    description,
+                    questions,
+                    created: Date.now()
+                };
+
+                // Get password if needed
+                const password = await showPasswordModal(
+                    'Set Quiz Password (Optional)', 
+                    'Leave blank for no password protection'
+                );
+                
+                // Encrypt the quiz
+                const encryptedQuiz = await CryptoUtils.encrypt(quiz, password || '');
+                
+                // Generate file for download
+                const blob = new Blob([JSON.stringify(encryptedQuiz)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${title.toLowerCase().replace(/[^a-z0-9]/g, '-')}.qowl`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+
+                // Also store the quiz locally
+                storeQuiz(quiz);
+                
+                showToast('Quiz saved successfully!', 'success');
+                
+                // Clear form if user wants to create another quiz
+                if (confirm('Quiz saved! Would you like to create another quiz?')) {
+                    resetQuizForm();
+                }
+            } catch (error) {
+                showToast(error.message, 'error');
+            }
+        }
+
+        // Reset quiz form
+        function resetQuizForm() {
+            document.getElementById('quizTitle').value = '';
+            document.getElementById('quizDescription').value = '';
+            document.getElementById('questionsContainer').innerHTML = '';
+            addQuestion(); // Add first question automatically
+        }
+
+        // Add this function for showing the confirmation modal
+        function showConfirmModal(title, message, onConfirm) {
+            const modalHTML = `
+                <div class="confirm-modal">
+                    <div class="confirm-modal-content">
+                        <div class="confirm-modal-header">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <h3>${title}</h3>
+                        </div>
+                        <div class="confirm-modal-body">
+                            ${message}
+                        </div>
+                        <div class="confirm-modal-actions">
+                            <button class="btn btn-secondary" onclick="closeConfirmModal(this)">
+                                Cancel
+                            </button>
+                            <button class="btn btn-primary" style="background: var(--error);" onclick="confirmAction(this)">
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.insertAdjacentHTML('beforeend', modalHTML);
+            const modal = document.querySelector('.confirm-modal');
+            
+            // Force reflow
+            modal.offsetHeight;
+            modal.classList.add('show');
+            
+            // Store the confirmation callback
+            modal.dataset.onConfirm = onConfirm.toString();
+        }
+
+        function closeConfirmModal(button) {
+            const modal = button.closest('.confirm-modal');
+            modal.classList.remove('show');
+            setTimeout(() => modal.remove(), 300);
+        }
+
+        function confirmAction(button) {
+            const modal = button.closest('.confirm-modal');
+            const onConfirm = new Function('return ' + modal.dataset.onConfirm)();
+            closeConfirmModal(button);
+            onConfirm();
+        }
+
+        // Update the deleteQuestion function to use the proper modal closing
+        function deleteQuestion(questionNumber) {
+            const questionsContainer = document.getElementById('questionsContainer');
+            if (!questionsContainer) {
+                showToast('Error: Questions container not found', 'error');
+                return;
+            }
+
+            // Check if we have more than 2 questions
+            const totalQuestions = questionsContainer.children.length;
+            if (totalQuestions <= 2) {
+                showToast('A quiz must have at least 2 questions', 'error');
+                return;
+            }
+
+            // Find the question to delete
+            const questionItem = document.querySelector(`[data-question="${questionNumber}"]`);
+            if (!questionItem) {
+                showToast('Question not found', 'error');
+                return;
+            }
+
+            // Clean up event listeners before showing confirmation
+            cleanupQuestionEventListeners(questionItem);
+
+            // Get question text for confirmation
+            const questionText = questionItem.querySelector('.question-text')?.value.trim() || 'Untitled Question';
+            const previewText = questionText.length > 50 ? questionText.substring(0, 47) + '...' : questionText;
+
+            // Show confirmation dialog
+            const modalHTML = `
+                <div class="confirm-modal">
+                    <div class="confirm-modal-content">
+                        <div class="confirm-modal-header">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <h3>Delete Question</h3>
+                        </div>
+                        <div class="confirm-modal-body">
+                            <p>Are you sure you want to delete this question?</p>
+                            <p class="text-secondary">"${previewText}"</p>
+                        </div>
+                        <div class="confirm-modal-actions">
+                            <button class="btn btn-secondary" onclick="closeDeleteConfirmation()">
+                                Cancel
+                            </button>
+                            <button class="btn btn-primary" style="background: var(--error);" 
+                                    onclick="confirmQuestionDeletion(${questionNumber})">
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Remove any existing confirmation modals
+            const existingModal = document.querySelector('.confirm-modal');
+            if (existingModal) {
+                existingModal.remove();
+            }
+
+            document.body.insertAdjacentHTML('beforeend', modalHTML);
+            const modal = document.querySelector('.confirm-modal');
+            requestAnimationFrame(() => modal.classList.add('show'));
+        }
+
+        function cleanupQuestionEventListeners(questionItem) {
+            // Remove header click event
+            const header = questionItem.querySelector('.question-header');
+            if (header) {
+                const newHeader = header.cloneNode(true);
+                header.parentNode.replaceChild(newHeader, header);
+            }
+
+            // Remove delete button event
+            const deleteBtn = questionItem.querySelector('.delete-btn');
+            if (deleteBtn) {
+                const newDeleteBtn = deleteBtn.cloneNode(true);
+                deleteBtn.parentNode.replaceChild(newDeleteBtn, deleteBtn);
+            }
+
+            // Remove option-related events
+            const optionElements = questionItem.querySelectorAll('.option-item');
+            optionElements.forEach(option => {
+                const newOption = option.cloneNode(true);
+                option.parentNode.replaceChild(newOption, option);
+            });
+
+            // Remove question text input events
+            const questionText = questionItem.querySelector('.question-text');
+            if (questionText) {
+                const newQuestionText = questionText.cloneNode(true);
+                questionText.parentNode.replaceChild(newQuestionText, questionText);
+            }
+        }
+
+        function closeDeleteConfirmation() {
+            const modal = document.querySelector('.confirm-modal');
+            if (modal) {
+                modal.classList.remove('show');
+                // Use requestAnimationFrame to ensure smooth animation
+                requestAnimationFrame(() => {
+                    setTimeout(() => {
+                        modal.remove();
+                    }, 300); // Match the CSS transition duration
+                });
+            }
+        }
+
+        function confirmQuestionDeletion(questionNumber) {
+            const questionItem = document.querySelector(`[data-question="${questionNumber}"]`);
+            if (!questionItem) {
+                showToast('Question not found', 'error');
+                closeDeleteConfirmation();
+                return;
+            }
+
+            // Add fade out animation
+            questionItem.classList.add('fade-out');
+
+            // Remove the question after animation
+            setTimeout(() => {
+                // Remove the question element
+                questionItem.remove();
+                
+                // Update the remaining questions efficiently
+                requestAnimationFrame(() => {
+                    const questions = document.querySelectorAll('.question-item');
+                    questions.forEach((question, index) => {
+                        const newNumber = index + 1;
+                        question.dataset.question = newNumber;
+                        
+                        // Update question number display
+                        const numberSpan = question.querySelector('.question-number');
+                        if (numberSpan) {
+                            numberSpan.textContent = `Question ${newNumber}`;
+                        }
+
+                        // Update correct answer input names
+                        const correctInputs = question.querySelectorAll('.correct-checkbox');
+                        correctInputs.forEach(input => {
+                            input.name = `correct-${newNumber}`;
+                        });
+
+                        // Reattach event listeners
+                        attachQuestionEventListeners(question, newNumber);
+                    });
+
+                    showToast('Question deleted successfully', 'success');
+                });
+            }, 300);
+
+            // Close the confirmation modal
+            closeDeleteConfirmation();
+        }
+
+        function attachQuestionEventListeners(question, number) {
+            // Attach header click event
+            const header = question.querySelector('.question-header');
+            if (header) {
+                header.onclick = () => toggleQuestion(number);
+            }
+
+            // Attach delete button event
+            const deleteBtn = question.querySelector('.delete-btn');
+            if (deleteBtn) {
+                deleteBtn.onclick = (e) => {
+                    e.stopPropagation();
+                    deleteQuestion(number);
+                };
+            }
+
+            // Attach option events
+            const addOptionBtn = question.querySelector('.add-option-btn');
+            if (addOptionBtn) {
+                addOptionBtn.onclick = () => addOption(number);
+            }
+
+            // Attach question text input event
+            const questionText = question.querySelector('.question-text');
+            if (questionText) {
+                questionText.oninput = () => updateQuestionPreview(questionText);
+            }
+
+            // Add question type change handler
+            const typeSelect = question.querySelector('.question-type-select');
+            if (typeSelect) {
+                typeSelect.onchange = () => handleQuestionTypeChange(typeSelect);
+            }
+
+            // Update existing correct-checkboxes
+            const questionType = typeSelect ? typeSelect.value : 'single';
+            const correctCheckboxes = question.querySelectorAll('.correct-checkbox');
+            correctCheckboxes.forEach(checkbox => {
+                if (questionType === 'single') {
+                    checkbox.onchange = () => {
+                        if (checkbox.checked) {
+                            correctCheckboxes.forEach(cb => {
+                                if (cb !== checkbox) cb.checked = false;
+                            });
+                        }
+                    };
+                } else {
+                    checkbox.onchange = () => {
+                        const optionText = checkbox.closest('.option-item').querySelector('.option-text');
+                        updateOptionPreview(optionText);
+                    };
+                }
+            });
+        }
+
+        // Update the addQuestion function to properly set up delete functionality
+        function addQuestion() {
+            const questionsContainer = document.getElementById('questionsContainer');
+            if (!questionsContainer) return;
+
+            const questionNumber = questionsContainer.children.length + 1;
+            
+            const questionHTML = `
+                <div class="question-item" data-question="${questionNumber}">
+                    <div class="question-header">
+                        <div class="header-content">
+                            <span class="question-number">Question ${questionNumber}</span>
+                            <span class="question-preview"></span>
+                        </div>
+                        <div class="question-controls">
+                            <button type="button" class="question-control-btn delete-btn">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                            <button type="button" class="question-control-btn collapse-indicator">
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="question-body">
+                        <div class="form-group">
+                            <label>Question Text</label>
+                            <textarea class="form-input question-text" placeholder="Enter your question here..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Question Type</label>
+                            <select class="form-input question-type-select">
+                                <option value="single">Single Choice</option>
+                                <option value="multiple">Multiple Choice</option>
+                            </select>
+                        </div>
+                        <div class="options-section">
+                            <label>Options</label>
+                            <div class="options-container">
+                                <!-- Options will be added here -->
+                            </div>
+                            <button type="button" class="add-option-btn">
+                                <i class="fas fa-plus"></i> Add Option
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Use insertAdjacentHTML for better performance
+            questionsContainer.insertAdjacentHTML('beforeend', questionHTML);
+            
+            // Get the newly added question item
+            const newQuestion = questionsContainer.lastElementChild;
+            
+            // Attach event listeners efficiently
+            attachQuestionEventListeners(newQuestion, questionNumber);
+            
+            // Add initial options using requestAnimationFrame for better performance
+            requestAnimationFrame(() => {
+                addOption(questionNumber);
+                addOption(questionNumber);
+            });
+        }
+
+        // Update the updateQuestionNumbers function
+        function updateQuestionNumbers() {
+            const questions = document.querySelectorAll('.question-item');
+            questions.forEach((question, index) => {
+                const number = index + 1;
+                question.dataset.question = number;
+                
+                // Update question number text
+                const numberSpan = question.querySelector('.question-number');
+                if (numberSpan) {
+                    numberSpan.textContent = `Question ${number}`;
+                }
+                
+                // Update header click handler
+                const header = question.querySelector('.question-header');
+                if (header) {
+                    header.onclick = () => toggleQuestion(number);
+                }
+                
+                // Update delete button
+                const deleteBtn = question.querySelector('.delete-btn');
+                if (deleteBtn) {
+                    deleteBtn.onclick = (e) => {
+                        e.stopPropagation();
+                        deleteQuestion(number);
+                    };
+                }
+                
+                // Update option input names
+                const correctToggles = question.querySelectorAll('.correct-toggle input');
+                correctToggles.forEach(input => {
+                    input.name = `correct-${number}`;
+                });
+            });
+        }
+
+        // Toast notification utility with duplicate prevention
+        function showToast(message, type = 'success') {
+            // Create or get toast container
+            let container = document.querySelector('.toast-container');
+            if (!container) {
+                container = document.createElement('div');
+                container.className = 'toast-container';
+                document.body.appendChild(container);
+            }
+
+            // Remove any existing toasts with the same message to prevent duplicates
+            const existingToasts = container.querySelectorAll('.toast');
+            existingToasts.forEach(toast => {
+                if (toast.textContent.trim() === message) {
+                    toast.remove();
+                }
+            });
+
+            // Create toast element
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+                <span>${message}</span>
+            `;
+
+            // Add to container
+            container.appendChild(toast);
+
+            // Force reflow and add show class
+            toast.offsetHeight;
+            toast.classList.add('show');
+
+            // Remove after delay
+            setTimeout(() => {
+                toast.classList.add('hide');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Update file import handler to handle encrypted quizzes
+        async function handleFileImport(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            try {
+                const reader = new FileReader();
+                reader.onload = async function(e) {
+                    try {
+                        const encryptedQuiz = JSON.parse(e.target.result);
+                        if (encryptedQuiz.version !== 1) {
+                            throw new Error('Unsupported quiz format version');
+                        }
+
+                        // Try to decrypt without password first
+                        try {
+                            const quiz = await CryptoUtils.decrypt(encryptedQuiz, '');
+                            storeQuiz(quiz);
+                            showToast('Quiz imported successfully!', 'success');
+                        } catch {
+                            // If decryption fails, show password modal
+                            const password = await showPasswordModal(
+                                'Enter Quiz Password',
+                                'This quiz is password protected. Please enter the password to continue:'
+                            );
+                            
+                            if (!password) return;
+                            
+                            try {
+                                const quiz = await CryptoUtils.decrypt(encryptedQuiz, password);
+                                storeQuiz(quiz);
+                                showToast('Quiz imported successfully!', 'success');
+                            } catch {
+                                showToast('Invalid password', 'error');
+                            }
+                        }
+                    } catch (error) {
+                        showToast('Invalid quiz file', 'error');
+                    }
+                };
+                reader.readAsText(file);
+            } catch (error) {
+                showToast('Error reading file', 'error');
+            }
+        }
+
+        // Update loadStoredQuizzes function with enhanced UI
+        function loadStoredQuizzes() {
+            const storedQuizzes = JSON.parse(localStorage.getItem('storedQuizzes') || '[]');
+            const container = document.getElementById('storedQuizzesList');
+            
+            if (storedQuizzes.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-folder-open"></i>
+                        <p>No quizzes stored yet. Import or create a quiz to get started!</p>
+                        <button class="btn btn-primary mt-4" onclick="showCreateQuiz()">
+                            <i class="fas fa-plus"></i> Create Quiz
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+
+            const view = localStorage.getItem('preferredQuizView') || 'grid';
+            container.innerHTML = `
+                <div id="quizGrid" class="quiz-${view}">
+                    ${storedQuizzes.map((quiz, index) => {
+                        const totalQuestions = quiz.questions.length;
+                        const multipleChoiceCount = quiz.questions.filter(q => q.type === 'multiple').length;
+                        const singleChoiceCount = quiz.questions.filter(q => q.type === 'single').length;
+                        const hasPassword = quiz.password !== undefined && quiz.password !== '';
+                        const timeAgo = getTimeAgo(quiz.timestamp);
+                        const dateCreated = new Date(quiz.timestamp).toLocaleDateString();
+
+                        return `
+                            <div class="quiz-card" data-quiz-id="${quiz.id}" style="animation-delay: ${index * 0.1}s">
+                                <div class="quiz-card-header" onclick="toggleQuizCard(this)">
+                                    <div class="quiz-title-row">
+                                        <div class="quiz-title-section">
+                                            <h3 class="quiz-title">
+                                                ${quiz.title}
+                                                ${hasPassword ? '<i class="fas fa-lock" title="Password Protected"></i>' : ''}
+                                            </h3>
+                                        </div>
+                                        <div class="quiz-controls">
+                                            <i class="fas fa-chevron-down collapse-indicator"></i>
+                                        </div>
+                                    </div>
+                                    <div class="quiz-meta">
+                                        <span class="time-ago" title="${dateCreated}">${timeAgo}</span>
+                                    </div>
+                                </div>
+                                <div class="quiz-card-content">
+                                    <div class="quiz-content">
+                                        <div class="quiz-info-grid">
+                                            <div class="info-item">
+                                                <div class="info-label">Total Questions</div>
+                                                <div class="info-value">
+                                                    <i class="fas fa-list-ol"></i>
+                                                    ${totalQuestions}
+                                                </div>
+                                            </div>
+                                            <div class="info-item">
+                                                <div class="info-label">Single Choice</div>
+                                                <div class="info-value">
+                                                    <i class="fas fa-dot-circle"></i>
+                                                    ${singleChoiceCount}
+                                                </div>
+                                            </div>
+                                            <div class="info-item">
+                                                <div class="info-label">Multiple Choice</div>
+                                                <div class="info-value">
+                                                    <i class="fas fa-tasks"></i>
+                                                    ${multipleChoiceCount}
+                                                </div>
+                                            </div>
+                                            ${quiz.lastScore !== undefined ? `
+                                                <div class="info-item">
+                                                    <div class="info-label">Last Score</div>
+                                                    <div class="info-value ${getScoreClass(quiz.lastScore)}">
+                                                        <i class="fas fa-chart-line"></i>
+                                                        ${quiz.lastScore}%
+                                                    </div>
+                                                </div>
+                                            ` : ''}
+                                        </div>
+                                        ${quiz.description ? `
+                                            <div class="quiz-description">
+                                                <div class="description-label">Description</div>
+                                                <p>${quiz.description}</p>
+                                            </div>
+                                        ` : ''}
+                                    </div>
+                                    <div class="quiz-actions">
+                                        <button class="action-btn primary" onclick="startQuiz('${quiz.id}')">
+                                            <i class="fas fa-play"></i>
+                                            <span>Take Quiz</span>
+                                        </button>
+                                        <button class="action-btn secondary" onclick="exportQuiz('${quiz.id}')">
+                                            <i class="fas fa-file-export"></i>
+                                            <span>Export</span>
+                                        </button>
+                                        <button class="action-btn danger" onclick="deleteQuiz('${quiz.id}')">
+                                            <i class="fas fa-trash"></i>
+                                            <span>Delete</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+            `;
+        }
+
+        function getScoreClass(score) {
+            if (score >= 90) return 'score-excellent';
+            if (score >= 70) return 'score-good';
+            if (score >= 50) return 'score-fair';
+            return 'score-needs-improvement';
+        }
+
+        // Add helper functions
+        function getTimeAgo(timestamp) {
+            const seconds = Math.floor((Date.now() - timestamp) / 1000);
+            const intervals = {
+                year: 31536000,
+                month: 2592000,
+                week: 604800,
+                day: 86400,
+                hour: 3600,
+                minute: 60
+            };
+
+            for (const [unit, secondsInUnit] of Object.entries(intervals)) {
+                const interval = Math.floor(seconds / secondsInUnit);
+                if (interval >= 1) {
+                    return interval === 1 ? `1 ${unit} ago` : `${interval} ${unit}s ago`;
+                }
+            }
+            return 'Just now';
+        }
+
+        function toggleQuizView(view) {
+            const grid = document.getElementById('quizGrid');
+            const buttons = document.querySelectorAll('.view-btn');
+            
+            buttons.forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.view === view);
+            });
+            
+            grid.className = `quiz-${view}`;
+            localStorage.setItem('preferredQuizView', view);
+        }
+
+        function filterQuizzes() {
+            const searchTerm = document.getElementById('quizSearch').value.toLowerCase();
+            const typeFilter = document.getElementById('quizTypeFilter').value;
+            const sortBy = document.getElementById('quizSortBy').value;
+            const quizCards = document.querySelectorAll('.quiz-card');
+            
+            quizCards.forEach(card => {
+                const title = card.querySelector('.quiz-title').textContent.toLowerCase();
+                const description = card.querySelector('.quiz-description').textContent.toLowerCase();
+                const matches = title.includes(searchTerm) || description.includes(searchTerm);
+                
+                // Apply type filter
+                const quizId = card.dataset.quizId;
+                const quiz = JSON.parse(localStorage.getItem('storedQuizzes')).find(q => q.id === quizId);
+                const matchesType = typeFilter === 'all' || 
+                    (typeFilter === 'single' && quiz.questions.some(q => q.type === 'single')) ||
+                    (typeFilter === 'multiple' && quiz.questions.some(q => q.type === 'multiple'));
+                
+                card.style.display = matches && matchesType ? 'flex' : 'none';
+            });
+            
+            // Apply sorting
+            const quizGrid = document.getElementById('quizGrid');
+            const cards = Array.from(quizCards);
+            
+            cards.sort((a, b) => {
+                const quizA = JSON.parse(localStorage.getItem('storedQuizzes')).find(q => q.id === a.dataset.quizId);
+                const quizB = JSON.parse(localStorage.getItem('storedQuizzes')).find(q => q.id === b.dataset.quizId);
+                
+                switch (sortBy) {
+                    case 'newest':
+                        return quizB.timestamp - quizA.timestamp;
+                    case 'oldest':
+                        return quizA.timestamp - quizB.timestamp;
+                    case 'name':
+                        return quizA.title.localeCompare(quizB.title);
+                    case 'score':
+                        return (quizB.lastScore || 0) - (quizA.lastScore || 0);
+                    default:
+                        return 0;
+                }
+            });
+            
+            cards.forEach(card => quizGrid.appendChild(card));
+        }
+
+        // Add function to toggle quiz card collapse state
+        function toggleQuizCard(header) {
+            const card = header.closest('.quiz-card');
+            card.classList.toggle('collapsed');
+        }
+
+        // Update the app-title and hero-title styles
+        const titleStyles = `
+            .app-title {
+                font-size: 3.5rem;  /* Increased from 2rem */
+                font-weight: bold;
+                background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+                -webkit-background-clip: text;
+                background-clip: text;
+                -webkit-text-fill-color: transparent;
+                margin-left: var(--spacing-md);
+                vertical-align: middle;
+            }
+
+            .hero-title {
+                font-size: 2rem;  /* Decreased from 3.5rem */
+                background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+                -webkit-background-clip: text;
+                background-clip: text;
+                -webkit-text-fill-color: transparent;
+                margin-bottom: var(--spacing-md);
+                line-height: 1.2;
+                padding-bottom: 0.1em;
+            }
+
+            /* Update quiz card styles to support collapsing */
+            .quiz-card {
+                background: var(--surface-dark);
+                border-radius: var(--border-radius);
+                border: 1px solid var(--border);
+                overflow: hidden;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                opacity: 0;
+                transform: translateY(20px);
+                animation: slideInQuiz 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            }
+
+            @keyframes slideInQuiz {
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            .quiz-card:hover {
+                transform: translateY(-4px);
+                box-shadow: var(--shadow-md);
+                border-color: var(--primary-color);
+            }
+
+            .quiz-card-header {
+                background: var(--surface);
+                padding: var(--spacing-lg);
+                border-bottom: 1px solid var(--border);
+                cursor: pointer;
+                user-select: none;
+                transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            .quiz-card-header:hover {
+                background: var(--surface-light);
+            }
+
+            .quiz-title-row {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .quiz-title {
+                font-size: 1.2rem;
+                margin: 0;
+                color: var(--text);
+                display: flex;
+                align-items: center;
+                gap: var(--spacing-sm);
+            }
+
+            .quiz-title i {
+                color: var(--warning);
+                font-size: 0.9em;
+            }
+
+            .quiz-meta {
+                margin-top: var(--spacing-xs);
+                color: var(--text-secondary);
+                font-size: 0.9rem;
+            }
+
+            .quiz-card-content {
+                max-height: 1000px;
+                opacity: 1;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                overflow: hidden;
+            }
+
+            .quiz-card.collapsed .quiz-card-content {
+                max-height: 0;
+                opacity: 0;
+            }
+
+            .collapse-indicator {
+                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                color: var(--text-secondary);
+            }
+
+            .quiz-card.collapsed .collapse-indicator {
+                transform: rotate(-90deg);
+            }
+
+            .quiz-content {
+                padding: var(--spacing-lg);
+            }
+
+            .quiz-info-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+                gap: var(--spacing-md);
+                margin-bottom: var(--spacing-lg);
+            }
+
+            .info-item {
+                background: var(--surface);
+                padding: var(--spacing-md);
+                border-radius: var(--border-radius);
+                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            .info-item:hover {
+                transform: translateY(-2px);
+            }
+
+            .info-label {
+                color: var(--text-secondary);
+                font-size: 0.9rem;
+                margin-bottom: var(--spacing-xs);
+            }
+
+            .info-value {
+                font-size: 1.1rem;
+                font-weight: 500;
+                color: var(--text);
+                display: flex;
+                align-items: center;
+                gap: var(--spacing-sm);
+            }
+
+            .info-value i {
+                color: var(--primary-color);
+                font-size: 0.9em;
+            }
+
+            .info-value.score-excellent {
+                color: var(--success);
+            }
+
+            .info-value.score-excellent i {
+                color: var(--success);
+            }
+
+            .info-value.score-good {
+                color: var(--primary-color);
+            }
+
+            .info-value.score-fair {
+                color: var(--warning);
+            }
+
+            .info-value.score-needs-improvement {
+                color: var(--error);
+            }
+
+            .quiz-description {
+                background: var(--surface);
+                padding: var(--spacing-md);
+                border-radius: var(--border-radius);
+                margin-top: var(--spacing-md);
+            }
+
+            .description-label {
+                color: var(--text-secondary);
+                font-size: 0.9rem;
+                margin-bottom: var(--spacing-xs);
+            }
+
+            .quiz-actions {
+                display: flex;
+                gap: var(--spacing-sm);
+                padding: var(--spacing-md);
+                background: var(--surface);
+                border-top: 1px solid var(--border);
+            }
+
+            .action-btn {
+                flex: 1;
+                padding: var(--spacing-sm) var(--spacing-md);
+                border-radius: var(--border-radius);
+                border: 1px solid var(--border);
+                background: var(--surface-dark);
+                color: var(--text);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: var(--spacing-sm);
+                cursor: pointer;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                font-size: 0.95rem;
+            }
+
+            .action-btn:hover {
+                transform: translateY(-2px);
+            }
+
+            .action-btn.primary {
+                background: var(--primary-color);
+                border-color: var(--primary-color);
+            }
+
+            .action-btn.primary:hover {
+                background: var(--primary-dark);
+            }
+
+            .action-btn.danger {
+                color: var(--error);
+                border-color: var(--error);
+            }
+
+            .action-btn.danger:hover {
+                background: var(--error);
+                color: var(--text);
+            }
+
+            .quiz-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                gap: var(--spacing-lg);
+                padding: var(--spacing-md);
+            }
+
+            .quiz-list {
+                display: flex;
+                flex-direction: column;
+                gap: var(--spacing-md);
+                padding: var(--spacing-md);
+            }
+
+            .quiz-list .quiz-card {
+                display: flex;
+                flex-direction: column;
+            }
+
+            @media (max-width: 768px) {
+                .quiz-info-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+
+                .quiz-actions {
+                    flex-direction: column;
+                }
+
+                .action-btn {
+                    width: 100%;
+                }
+            }
+        `;
+
+        // Add the new styles to the document
+        const styleElement = document.createElement('style');
+        styleElement.textContent = titleStyles;
+        document.head.appendChild(styleElement);
+    </script>
+</body>
+</html> 
